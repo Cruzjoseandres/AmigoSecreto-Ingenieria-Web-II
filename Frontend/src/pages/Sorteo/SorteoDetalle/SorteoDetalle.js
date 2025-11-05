@@ -71,7 +71,7 @@ export const useSorteoDetalle = () => {
             fetchSorteoDetalle();
         } catch (err) {
             console.error(err);
-            alert("Error al realizar el sorteo. " + (err.message || ""));
+            alert(err.request.response);
         }
     };
 

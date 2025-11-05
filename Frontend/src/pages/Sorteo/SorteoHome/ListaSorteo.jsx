@@ -13,6 +13,17 @@ const ListaSorteos = () => {
         handleCreate
     } = useListaSorteos();
 
+    // Función para formatear la fecha
+    const formatearFecha = (fechaISO) => {
+        if (!fechaISO) return "Fecha no definida";
+        const fecha = new Date(fechaISO);
+        return fecha.toLocaleDateString('es-ES', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+    };
+
     const renderContent = () => {
         if (loading) {
             return (
@@ -45,7 +56,7 @@ const ListaSorteos = () => {
         return listaSorteo.map((sorteo) => {
             const key = sorteo.link;
             const nombre = sorteo.nombre || "Sorteo sin nombre";
-            const fecha = sorteo.fecha || "Fecha no definida";
+            const fecha = formatearFecha(sorteo.fecha);
 
             return (
                 <Col md={6} lg={4} key={key} className="mb-4">

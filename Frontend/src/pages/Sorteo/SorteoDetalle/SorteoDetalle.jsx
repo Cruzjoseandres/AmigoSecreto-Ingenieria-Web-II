@@ -33,6 +33,17 @@ const DetalleSorteo = () => {
 
     console.log("DATOS", sorteo);
 
+    // Función para formatear la fecha
+    const formatearFecha = (fechaISO) => {
+        if (!fechaISO) return "Fecha no definida";
+        const fecha = new Date(fechaISO);
+        return fecha.toLocaleDateString('es-ES', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+    };
+
     const renderContent = () => {
         if (loading) {
             return (
@@ -58,7 +69,7 @@ const DetalleSorteo = () => {
             return null;
         }
 
-        const fecha = sorteo.fecha;
+        const fecha = formatearFecha(sorteo.fecha);
         const creador = sorteo.usuario;
 
         // Vista para NO propietarios
@@ -159,8 +170,10 @@ const DetalleSorteo = () => {
                                 <strong>Fecha:</strong> {fecha}
                             </p>
                             <p>
+                                
                                 <strong>Link de invitación:</strong> <br />
                                 <code className="text-break">{`${window.location.origin}/sorteo/${sorteo.link}`}</code>
+                                
                             </p>
 
                             <h5 className="mt-4">Acciones de Administrador</h5>

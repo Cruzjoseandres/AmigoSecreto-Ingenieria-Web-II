@@ -1,3 +1,4 @@
+const { error } = require('console');
 const db = require('../models');
 const crypto = require('crypto');
 
@@ -11,7 +12,6 @@ exports.addParticipantebySorteoLink = async (req, res) => {
             return res.status(404).json({ error: 'Sorteo no encontrado' });
         }
 
-        // Generar código de 6 dígitos numérico único
         const identificadorUnico = Math.floor(100000 + Math.random() * 900000).toString();
         const token = crypto.randomBytes(16).toString("hex");
 
@@ -103,7 +103,7 @@ exports.asignarParticipantes = async (req, res) => {
     try {
         const participantes = await db.ParticipantesModel.findAll({ where: { idSorteo: id } });
         if (participantes.length < 3) {
-            return res.status(400).json({ error: 'No hay suficientes participantes para asignar' });
+            return res.status(400).json({ error: 'No hay suficientes participantes para asignar, espere que se inscriban al menos un 3 parcipantes' });
         }
         const copias = [...participantes];
         let participantesMezclados = copias.sort(() => Math.random() - 0.5);

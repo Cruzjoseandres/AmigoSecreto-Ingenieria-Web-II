@@ -18,6 +18,15 @@ const FormSorteo = () => {
         handleCancel
     } = useSorteoForm();
 
+    // Obtener la fecha mínima (hoy)
+    const obtenerFechaMinima = () => {
+        const hoy = new Date();
+        const año = hoy.getFullYear();
+        const mes = String(hoy.getMonth() + 1).padStart(2, '0');
+        const dia = String(hoy.getDate()).padStart(2, '0');
+        return `${año}-${mes}-${dia}`;
+    };
+
     return (
         <>
             <Header />
@@ -53,9 +62,13 @@ const FormSorteo = () => {
                                                 <FormControl 
                                                     id="txtFecha" 
                                                     type="date" 
+                                                    min={obtenerFechaMinima()}
                                                     value={fecha} 
                                                     onChange={(e) => setFecha(e.target.value)} 
                                                 />
+                                                <Form.Text className="text-muted">
+                                                    Selecciona una fecha a partir de hoy
+                                                </Form.Text>
                                             </FormGroup>
                                         </Col>
                                     </Row>
